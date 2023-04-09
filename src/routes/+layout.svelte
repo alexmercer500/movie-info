@@ -1,0 +1,18 @@
+<script>
+	import '../app.css';
+	import Footer from '../component/Footer.svelte';
+	import Header from '../component/header/Header.svelte';
+
+	import { page } from '$app/stores';
+	import Headerhome from '../component/header/Headerhome.svelte';
+	let currentPage;
+	$: currentPage = $page.route.id;
+</script>
+
+{#if currentPage === '/'}
+	<Headerhome />
+{:else}
+	<Header />
+{/if}
+<slot />
+<Footer />
