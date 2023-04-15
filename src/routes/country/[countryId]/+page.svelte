@@ -1,8 +1,6 @@
-<script>
+<!-- <script>
 	export let data;
-	let popularMovie = data.data.results;
-	console.log(popularMovie[0]);
-	// console.log(data.data.total_pages);
+	$: genreResult = data.data.results;
 </script>
 
 <section>
@@ -22,14 +20,14 @@
 			</div>
 		</div>
 		<div class="list-container">
-			{#each popularMovie as movie}
+			{#each genreResult as movie}
 				<div class="show-box">
 					<figure>
 						<a href="/movies/{movie.id}">
 							<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
 						</a>
 					</figure>
-					<div class="show-info">
+					<div>
 						<a href="/movies/{movie.id}">{movie.title}</a>
 						<h3>{new Date(movie.release_date).getFullYear()}</h3>
 					</div>
@@ -37,8 +35,4 @@
 			{/each}
 		</div>
 	</div>
-</section>
-
-<style>
-
-</style>
+</section> -->

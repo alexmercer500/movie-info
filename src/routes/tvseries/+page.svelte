@@ -15,10 +15,8 @@
 						<figcaption>{tv.original_name}</figcaption>
 					</figure>
 					<div>
-						<a href="/tvseries/{tv.id}">
-							<h3>{tv.original_name}</h3>
-						</a>
-						<h3>{tv.first_air_date}</h3>
+						<a href="/tvseries/{tv.id}">{tv.original_name}</a>
+						<h3>{new Date(tv.first_air_date).getFullYear()}</h3>
 					</div>
 				</div>
 			{/each}
