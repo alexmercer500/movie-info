@@ -19,7 +19,7 @@
 	<div class="cast">
 		{#each cast as cast}
 			<div>
-				<a href="!#">
+				<a href="/cast/{cast.id}">
 					<figure>
 						{#if !cast.profile_path}
 							<img src={castPlaceholder} alt={cast.name} class="alt-image" />
