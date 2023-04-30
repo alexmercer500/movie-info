@@ -65,7 +65,7 @@ body {
   border-radius: 0.25rem;
   transition: box-shadow 200ms;
 }
-.pagination ul li a {
+.pagination ul li button {
   display: block;
   width: 40px;
   color: #000000;
