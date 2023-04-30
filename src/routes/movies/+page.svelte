@@ -1,21 +1,21 @@
 <script>
+
 	export let data;
 	let popularMovie = data.data.results;
-	console.log(popularMovie[0]);
-	// console.log(data.data.total_pages);
+	let pageNumb = data.data.page;
 </script>
 
-<section>
+<section>	
 	<div class="container">
 		<div class="movie-page">
 			<div class="page-numbers">
 				<button>Previous</button>
 				<div class="pagination">
 					<ul>
-						<li><a href="1">1</a></li>
-						<li><a href="2">2</a></li>
-						<li><a href="3">3</a></li>
-						<li><a href="4">4</a></li>
+						<li><a href={`movie/${pageNumb}`}>{pageNumb}</a></li>
+						<li><a href={`movie/${pageNumb + 1}`}>{pageNumb + 1}</a></li>
+						<li><a href={`movie/${pageNumb + 2}`}>{pageNumb + 2}</a></li>
+						<li><a href={`movie/${pageNumb + 3}`}>{pageNumb + 3}</a></li>
 					</ul>
 				</div>
 				<button>Next</button>
@@ -40,5 +40,4 @@
 </section>
 
 <style>
-
 </style>

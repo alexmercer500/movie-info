@@ -1,7 +1,6 @@
 <script>
 	export let data;
 	const movie = data.data;
-	console.log(data.data);
 </script>
 
 <div class="container">

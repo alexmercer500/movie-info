@@ -147,7 +147,7 @@
 							<ul>
 								{#each countryList as country}
 									<li class="nav-link__genre">
-										<a href="!#">
+										<a href="/country/{country}">
 											{country}
 										</a>
 									</li>

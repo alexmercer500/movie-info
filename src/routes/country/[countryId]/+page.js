@@ -2,10 +2,11 @@
 // export async function load({ fetch, params }) {
 
 //   try {
-//     const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${PUBLIC_API_kEY}&language=en-US`)
-//     const genreData = await response.json()
-//     const genre = genreData.genres.find(genre => genre.name === params.genreId)
-//     const responseData = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&language=en-US&sort_by=popularity.desc&include_adult=true&page=1&with_genres=${genre.id}`)
+//     const response = await fetch(`https://api.themoviedb.org/3/configuration/countries?api_key=${PUBLIC_API_kEY}`)
+//     const countryData = await response.json()
+//     const country = await countryData.find(country => country.native_name === params.countryId)
+//     console.log(country.iso_3166_1);
+//     const responseData = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&region=${country.iso_3166_1}`)
 //     const genreResult = await responseData.json()
 //     console.log(genreResult);
 //     return {
