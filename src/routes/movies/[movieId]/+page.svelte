@@ -3,7 +3,6 @@
 	export let data;
 	const movie = data.movieData;
 	const { cast } = data.castData;
-
 	console.log(cast);
 </script>
 
