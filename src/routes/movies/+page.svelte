@@ -11,8 +11,6 @@
 		const data = await response.json();
 		pageNumb = data.page;
 		popularMovie = data.results;
-
-		console.log(popularMovie, pageNumb);
 	};
 
 	onMount(() => {

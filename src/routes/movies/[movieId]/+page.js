@@ -6,8 +6,15 @@ export function load({ fetch, params }) {
     const movieData = response.json()
     return movieData
   }
+  const fetchCast = async (id) => {
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${PUBLIC_API_kEY}`
+    const response = await fetch(url)
+    const castData = response.json()
+    return castData
+  }
 
   return {
-    data: fetchMovie(params.movieId)
+    movieData: fetchMovie(params.movieId),
+    castData: fetchCast(params.movieId)
   }
 }
