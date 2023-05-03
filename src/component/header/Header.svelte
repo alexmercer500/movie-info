@@ -156,7 +156,7 @@
 						</div>
 					</li>
 					<li class="nav-link">
-						<a href="/movies">Movies</a>
+						<a href="/movies/1">Movies</a>
 					</li>
 					<li class="nav-link">
 						<a href="/tvseries">TV Series</a>

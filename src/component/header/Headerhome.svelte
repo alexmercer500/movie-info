@@ -12,7 +12,7 @@
 			<div class:active-menu={menuActive} class="nav-item">
 				<nav>
 					<a class="nav-link" href="/home">Home</a>
-					<a class="nav-link" href="/movies">Movies</a>
+					<a class="nav-link" href="/movies/1">Movies</a>
 					<a class="nav-link" href="/tvseries">TV Series</a>
 					<a class="nav-link" href="/top-imdb">Top IMDB</a>
 				</nav>
