@@ -4,7 +4,6 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
   	console.log($page);
-	let newVar = "ratnesh"
 	let popularMovie = [];
 	let pageNumb = 1;
   	let castId;
