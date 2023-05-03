@@ -28,6 +28,7 @@
 						{/if}
 					</figure>
 					<a href="!#">{cast.name}</a>
+					<p>{cast.character}</p>
 				</a>
 			</div>
 		{/each}
