@@ -23,12 +23,12 @@
 			{#each genreResult as movie}
 				<div class="show-box">
 					<figure>
-						<a href="/movies/{movie.id}">
+						<a href="/movie/{movie.id}">
 							<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
 						</a>
 					</figure>
 					<div>
-						<a href="/movies/{movie.id}">{movie.title}</a>
+						<a href="/movie/{movie.id}">{movie.title}</a>
 						<h3>{new Date(movie.release_date).getFullYear()}</h3>
 					</div>
 				</div>
