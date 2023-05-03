@@ -6,6 +6,7 @@
 	let pageNumb = 1;
   	let castId;
   	$:castId = $page.params.castId
+	$:console.log(castId)
 	const fetchMovie = async (pageNo) => {
 		let page = pageNo || 1;
 		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNumb}&with_cast=${castId}`;
@@ -51,5 +52,3 @@
 		</div>
 	</div>
 </section>
-
-
