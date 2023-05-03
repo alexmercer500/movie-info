@@ -58,14 +58,15 @@ body {
   display: flex;
   gap: 0.5rem;
 }
-.page-numbers button {
+.page-numbers a {
   padding: 5px 10px;
   background-color: #ffe400;
   width: 100px;
   border-radius: 0.25rem;
   transition: box-shadow 200ms;
+  color:#ffffff;
 }
-.pagination ul li button {
+.pagination ul li a {
   display: block;
   width: 40px;
   color: #000000;
@@ -75,7 +76,7 @@ body {
   display: grid;
   place-content: center;
 }
-.page-numbers button:hover,
+.page-numbers a:hover,
 .pagination ul li a:hover {
   box-shadow: 0 0 10px #ffe400;
 }
