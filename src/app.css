@@ -64,7 +64,7 @@ body {
   width: 100px;
   border-radius: 0.25rem;
   transition: box-shadow 200ms;
-  color:#ffffff;
+  color:#000000;
 }
 .pagination ul li a {
   display: block;
