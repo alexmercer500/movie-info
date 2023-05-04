@@ -1,5 +1,5 @@
 import { PUBLIC_API_kEY } from '$env/static/public'
-
+import.meta.env.VITE_API_kEY
 export async function load({ fetch, params }) {
   let pageNumb = params.pageId || 1
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${PUBLIC_API_kEY}&page=${pageNumb}`
