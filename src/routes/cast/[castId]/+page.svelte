@@ -1,5 +1,6 @@
 <script>
-	import { PUBLIC_API_kEY } from '$env/static/public';
+	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY
+
 	import Dummy from '../../../component/Dummy.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';

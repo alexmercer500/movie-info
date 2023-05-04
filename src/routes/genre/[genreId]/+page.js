@@ -1,4 +1,5 @@
-import { PUBLIC_API_kEY } from '$env/static/public'
+const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY
+
 export async function load({ fetch, params }) {
 
   try {
