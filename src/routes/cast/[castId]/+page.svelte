@@ -1,5 +1,6 @@
 <script>
 	import { PUBLIC_API_kEY } from '$env/static/public';
+	import Dummy from '../../../component/Dummy.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	let popularMovie = [];
@@ -12,7 +13,7 @@
 		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNumb}&with_cast=${castId}`;
 		const response = await fetch(apiUrl);
 		const data = await response.json();
-    	console.log(data);
+
 		pageNumb = data.page;
 		popularMovie = data.results;
 	};
@@ -40,7 +41,14 @@
 				<div class="show-box">
 					<figure>
 						<a href="/movie/{movie.id}">
-							<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+							{#if !movie.poster_path}
+								<Dummy dummyName={movie.title} />
+							{:else}
+								<img
+									src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+									alt={movie.title}
+								/>
+							{/if}
 						</a>
 					</figure>
 					<div class="show-info">

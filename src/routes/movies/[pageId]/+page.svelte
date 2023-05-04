@@ -1,12 +1,15 @@
 <script>
+	import Dummy from '../../../component/Dummy.svelte';
 	export let data;
 	let popularMovie;
 	let pageNumb;
 	$: popularMovie = data.data.results;
 	$: pageNumb = data.data.page;
-	console.log(data.data.results);
-	console.log(pageNumb);
 </script>
+
+<svelte:head>
+	<title>Popular Movie || page no : {pageNumb}</title>
+</svelte:head>
 
 <section>
 	<div class="container">
@@ -32,7 +35,14 @@
 				<div class="show-box">
 					<figure>
 						<a href="/movie/{movie.id}">
-							<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+							{#if !movie.poster_path}
+								<Dummy dummyName={movie.title} />
+							{:else}
+								<img
+									src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+									alt={movie.title}
+								/>
+							{/if}
 						</a>
 					</figure>
 					<div class="show-info">

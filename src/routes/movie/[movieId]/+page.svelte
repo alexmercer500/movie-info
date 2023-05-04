@@ -1,11 +1,13 @@
 <script>
-	import castPlaceholder from '../../../assests/user.webp';
+	import Dummy from '../../../component/Dummy.svelte';
 	export let data;
 	const movie = data.movieData;
 	const { cast } = data.castData;
 	console.log(cast);
 </script>
-
+<svelte:head>
+	<title>{movie.title}</title>
+</svelte:head>
 <div class="container">
 	<figure>
 		<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
@@ -22,7 +24,8 @@
 				<a href="/cast/{cast.id}">
 					<figure>
 						{#if !cast.profile_path}
-							<img src={castPlaceholder} alt={cast.name} class="alt-image" />
+							<!-- <img src={castPlaceholder} alt={cast.name} class="alt-image" /> -->
+							<Dummy dummyName={cast.name}/>
 						{:else}
 							<img src={`http://image.tmdb.org/t/p/w200/${cast.profile_path}`} alt={cast.name} />
 						{/if}
