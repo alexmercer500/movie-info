@@ -1,14 +1,14 @@
 <script>
-	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY
+	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
 
 	import Dummy from '../../../component/Dummy.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	let popularMovie = [];
 	let pageNumb = 1;
-  	let castId;
-  	$:castId = $page.params.castId
-	$:console.log(castId)
+	let castId;
+	$: castId = $page.params.castId;
+	$: console.log(castId);
 	const fetchMovie = async (pageNo) => {
 		let page = pageNo || 1;
 		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNumb}&with_cast=${castId}`;
@@ -19,9 +19,14 @@
 		popularMovie = data.results;
 	};
 
-	onMount(() => {fetchMovie(pageNumb);});
+	onMount(() => {
+		fetchMovie(pageNumb);
+	});
 </script>
 
+<svelte:head>
+	<title>{castId}</title>
+</svelte:head>
 <section>
 	<div class="container">
 		<div class="movie-page">
@@ -30,8 +35,12 @@
 				<div class="pagination">
 					<ul>
 						<li><button type="button" on:click={fetchMovie(pageNumb)}>{pageNumb}</button></li>
-						<li><button type="button" on:click={fetchMovie(pageNumb + 1)}>{pageNumb + 1}</button></li>
-						<li><button type="button" on:click={fetchMovie(pageNumb + 2)}>{pageNumb + 2}</button></li>
+						<li>
+							<button type="button" on:click={fetchMovie(pageNumb + 1)}>{pageNumb + 1}</button>
+						</li>
+						<li>
+							<button type="button" on:click={fetchMovie(pageNumb + 2)}>{pageNumb + 2}</button>
+						</li>
 					</ul>
 				</div>
 				<button on:click={fetchMovie(pageNumb + 1)}>Next</button>

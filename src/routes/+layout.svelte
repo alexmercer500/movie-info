@@ -8,7 +8,9 @@
 	let currentPage;
 	$: currentPage = $page.route.id;
 </script>
-
+<svelte:head>
+	<title>Movie Info || RM</title>
+</svelte:head>
 {#if currentPage === '/'}
 	<Headerhome />
 {:else}
