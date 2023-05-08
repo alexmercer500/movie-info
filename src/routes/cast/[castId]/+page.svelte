@@ -30,7 +30,7 @@
 <section>
 	<div class="container">
 		<div class="movie-page">
-			<div class="page-numbers">
+			<!-- <div class="page-numbers">
 				<button type="button" on:click={fetchMovie(pageNumb - 1)}>Previous</button>
 				<div class="pagination">
 					<ul>
@@ -44,7 +44,7 @@
 					</ul>
 				</div>
 				<button on:click={fetchMovie(pageNumb + 1)}>Next</button>
-			</div>
+			</div> -->
 		</div>
 		<div class="list-container">
 			{#each popularMovie as movie}
