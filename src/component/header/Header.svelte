@@ -103,108 +103,106 @@
 		<div class="logo">
 			<a href="/"><img src={logo} alt="App Logo" /></a>
 		</div>
-		<div>
-			<nav class:active-menu={menuActive} class="nav-item">
-				<div class="menu-close">
-					<button on:click={() => (menuActive = false)}>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
-							<path
-								d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-							/>
-						</svg>
-						Close Menu
-					</button>
-				</div>
-				<ul>
-					<li class="nav-link">
-						<a href="/home/1">Home</a>
-					</li>
-					<li class="nav-link">
-						<span>
-							Genre
-							<button
-								on:click={() =>
-									activeSubLink === 'sub-menu-one'
-										? (activeSubLink = '')
-										: (activeSubLink = 'sub-menu-one')}>+</button
-							>
-						</span>
-						<div
-							class={`${
-								activeSubLink === 'sub-menu-one' ? 'sub-link__active' : ''
-							} nav-link__sublink`}
-						>
-							<ul>
-								{#each genres as genre}
-									<li class="nav-link__country">
-										<a href="/genre/{genre}/1">
-											{genre}
-										</a>
-									</li>
-								{/each}
-							</ul>
-						</div>
-					</li>
-					<li class="nav-link">
-						<span>
-							<a href="/country">Country</a>
-							<button
-								on:click={() =>
-									activeSubLink === 'sub-menu-two'
-										? (activeSubLink = '')
-										: (activeSubLink = 'sub-menu-two')}>+</button
-							>
-						</span>
-						<div
-							class={`${
-								activeSubLink === 'sub-menu-two' ? 'sub-link__active' : ''
-							} nav-link__sublink`}
-						>
-							<ul>
-								{#each countryList as country}
-									<li class="nav-link__country">
-										<a href="/country/{country.code}">
-											{country.name}
-										</a>
-									</li>
-								{/each}
-							</ul>
-						</div>
-					</li>
-					<li class="nav-link">
-						<a href="/movies/1">Movies</a>
-					</li>
-					<li class="nav-link">
-						<a href="/tvseries/1">TV Series</a>
-					</li>
-					<li class="nav-link">
-						<a href="/top-imdb/1">Top IMDB</a>
-					</li>
-					<li class="nav-link">
-						<a href="/android-app">Android App</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		{#if currentPage != '/home'}
-			<div class="search-query">
-				<form>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+		<nav class:active-menu={menuActive} class="nav-item">
+			<div class="menu-close">
+				<button on:click={() => (menuActive = false)}>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
 						<path
-							d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+							d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
 						/>
 					</svg>
-					<input
-						type="text"
-						name="search"
-						placeholder="search here"
-						bind:value={tmdbData}
-						on:input={debounce}
-					/>
-				</form>
-				{#if multiData.length != 0 && tmdbData != ''}
-					<div class="search-result">
-						<div>
+					Close Menu
+				</button>
+			</div>
+			<ul>
+				<li class="nav-link">
+					<a href="/home/1">Home</a>
+				</li>
+				<li class="nav-link">
+					<span>
+						Genre
+						<button
+							on:click={() =>
+								activeSubLink === 'sub-menu-one'
+									? (activeSubLink = '')
+									: (activeSubLink = 'sub-menu-one')}>+</button
+						>
+					</span>
+					<div
+						class={`${
+							activeSubLink === 'sub-menu-one' ? 'sub-link__active' : ''
+						} nav-link__sublink`}
+					>
+						<ul>
+							{#each genres as genre}
+								<li class="nav-link__country">
+									<a href="/genre/{genre}/1">
+										{genre}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				</li>
+				<li class="nav-link">
+					<span>
+						<a href="/country">Country</a>
+						<button
+							on:click={() =>
+								activeSubLink === 'sub-menu-two'
+									? (activeSubLink = '')
+									: (activeSubLink = 'sub-menu-two')}>+</button
+						>
+					</span>
+					<div
+						class={`${
+							activeSubLink === 'sub-menu-two' ? 'sub-link__active' : ''
+						} nav-link__sublink`}
+					>
+						<ul>
+							{#each countryList as country}
+								<li class="nav-link__country">
+									<a href="/country/{country.code}">
+										{country.name}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				</li>
+				<li class="nav-link">
+					<a href="/movies/1">Movies</a>
+				</li>
+				<li class="nav-link">
+					<a href="/tvseries/1">TV Series</a>
+				</li>
+				<li class="nav-link">
+					<a href="/top-imdb/1">Top IMDB</a>
+				</li>
+				<li class="nav-link">
+					<a href="/android-app">Android App</a>
+				</li>
+			</ul>
+		</nav>
+		{#if currentPage != '/home'}
+			<div class="search-container">
+				<div class="search-query">
+					<form>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+							<path
+								d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+							/>
+						</svg>
+						<input
+							type="text"
+							name="search"
+							placeholder="search here"
+							bind:value={tmdbData}
+							on:input={debounce}
+						/>
+					</form>
+					{#if multiData.length != 0 && tmdbData != ''}
+						<div class="search-result">
 							<ul>
 								{#each multiData as data}
 									<li>
@@ -230,8 +228,8 @@
 								{/each}
 							</ul>
 						</div>
-					</div>
-				{/if}
+					{/if}
+				</div>
 			</div>
 		{/if}
 		<div class="login-btn">
@@ -256,6 +254,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding-block: 10px;
+		position: relative;
 	}
 	.header .logo img {
 		width: 160px;
@@ -315,6 +314,10 @@
 		color: #ffffff;
 		font-weight: 500;
 	}
+	.header .search-container {
+		position: absolute;
+		inset: 80px 16px auto 16px;
+	}
 	.header .nav-item a:hover {
 		color: #ffe400;
 	}
@@ -357,7 +360,6 @@
 		display: flex;
 		gap: 12px;
 		align-items: center;
-		max-width: 200px;
 		padding: 12px;
 		background-color: rgba(255, 255, 255, 0.2);
 		border-radius: 30px;
@@ -406,6 +408,14 @@
 		background-color: #29565c;
 	}
 	/* Footer area styling */
+	@media (min-width: 800px) {
+		.header .search-query form {
+			max-width: 200px;
+		}
+		.header .search-container {
+			position: unset;
+		}
+	}
 	@media (min-width: 1200px) {
 		.menu-btn {
 			display: block;

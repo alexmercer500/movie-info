@@ -83,7 +83,11 @@
 <style>
 	.show-container {
 		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
 		justify-content: space-between;
+		align-items: center;
+		padding-block: 3.5rem 2.5rem;
 	}
 	.show-listing label {
 		padding: 5px 10px;
@@ -107,7 +111,10 @@
 	}
 	.show-listing {
 		display: flex;
-		gap: 0.75rem;
+		gap: 0.8rem;
 		justify-content: center;
+	}
+	.page-numbers {padding-block: 0;}
+	@media (min-width: 800px) {
 	}
 </style>

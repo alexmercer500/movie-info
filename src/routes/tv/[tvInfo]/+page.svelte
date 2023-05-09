@@ -41,6 +41,9 @@
 </section>
 
 <style>
+		section {
+		padding-top: 4rem;
+	}
 	.cast {
 		display: grid;
 		gap: 0.75rem;
@@ -50,5 +53,8 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	@media (min-width:800px) {
+		section {padding-top: 2rem;}
 	}
 </style>
