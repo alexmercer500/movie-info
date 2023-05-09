@@ -3,11 +3,12 @@
 	import { fade } from 'svelte/transition';
 	export let data;
 	const movie = data.movieData;
+	console.log(movie.title);
 	const { cast } = data.castData;
 </script>
 
 <svelte:head>
-	<title>{movie.title}</title>
+	<title>{movie.title} - {new Date(movie.release_date).getFullYear()}</title>
 </svelte:head>
 
 <section transition:fade>
