@@ -11,10 +11,10 @@
 		<div class="navigation">
 			<div class:active-menu={menuActive} class="nav-item">
 				<nav>
-					<a class="nav-link" href="/home">Home</a>
+					<a class="nav-link" href="/home/1">Home</a>
 					<a class="nav-link" href="/movies/1">Movies</a>
-					<a class="nav-link" href="/tvseries">TV Series</a>
-					<a class="nav-link" href="/top-imdb">Top IMDB</a>
+					<a class="nav-link" href="/tvseries/1">TV Series</a>
+					<a class="nav-link" href="/top-imdb/1">Top IMDB</a>
 				</nav>
 			</div>
 			<div class="menu-btn">
