@@ -1,5 +1,6 @@
 <script>
 	import Dummy from '../../../component/Dummy.svelte';
+	import { fade } from 'svelte/transition';
 	export let data;
 	let popularMovie;
 	let pageNumb;
@@ -10,8 +11,7 @@
 <svelte:head>
 	<title>Popular Movie || page no : {pageNumb}</title>
 </svelte:head>
-
-<section>
+<section transition:fade>
 	<div class="container">
 		<div class="movie-page">
 			<div class="page-numbers">

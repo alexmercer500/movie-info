@@ -1,15 +1,18 @@
 <script>
 	import Dummy from '../../../component/Dummy.svelte';
+	import { fade } from 'svelte/transition';
 	export let data;
 	const movie = data.movieData;
 	const { cast } = data.castData;
-	console.log(cast);
 </script>
+
 <svelte:head>
 	<title>{movie.title}</title>
 </svelte:head>
-<div class="container">
-	<figure>
+
+<section transition:fade>
+	<div class="container">
+		<figure>
 		<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
 		<figcaption>{movie.title}</figcaption>
 	</figure>
@@ -20,12 +23,11 @@
 	</div>
 	<div class="cast">
 		{#each cast as cast}
-			<div>
+		<div>
 				<a href="/cast/{cast.id}">
 					<figure>
 						{#if !cast.profile_path}
-							<!-- <img src={castPlaceholder} alt={cast.name} class="alt-image" /> -->
-							<Dummy dummyName={cast.name}/>
+						<Dummy dummyName={cast.name}/>
 						{:else}
 							<img src={`http://image.tmdb.org/t/p/w200/${cast.profile_path}`} alt={cast.name} />
 						{/if}
@@ -34,10 +36,11 @@
 					<p>{cast.character}</p>
 				</a>
 			</div>
-		{/each}
+			{/each}
+		</div>
 	</div>
-</div>
-
+</section>
+	
 <style>
 	.cast {
 		display: grid;

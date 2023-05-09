@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
 	const genres = [
 		'Action',
 		'Adventure',
@@ -23,52 +24,67 @@
 	];
 
 	const countryList = [
-		'Argentina',
-		'Australia',
-		'Austria',
-		'Brazil',
-		'Canada',
-		'China',
-		'Denmark',
-		'Egypt',
-		'France',
-		'Germany',
-		'Hong Kong',
-		'India',
-		'Iran',
-		'Israel',
-		'Italy',
-		'Japan',
-		'Mexico',
-		'Netherlands',
-		'Nigeria',
-		'Norway',
-		'Philippines',
-		'Poland',
-		'Russia',
-		'Saudi Arabia',
-		'South Africa',
-		'South Korea',
-		'Spain',
-		'Sweden',
-		'Switzerland',
-		'Taiwan',
-		'Thailand',
-		'Turkey',
-		'Ukraine',
-		'United Arab Emirates',
-		'United Kingdom',
-		'United States'
+		{ name: 'Argentina', code: 'AR' },
+		{ name: 'Australia', code: 'AU' },
+		{ name: 'Austria', code: 'AT' },
+		{ name: 'Brazil', code: 'BR' },
+		{ name: 'Canada', code: 'CA' },
+		{ name: 'China', code: 'CN' },
+		{ name: 'Denmark', code: 'DK' },
+		{ name: 'Egypt', code: 'EG' },
+		{ name: 'France', code: 'FR' },
+		{ name: 'Germany', code: 'DE' },
+		{ name: 'Hong Kong', code: 'HK' },
+		{ name: 'India', code: 'IN' },
+		{ name: 'Iran', code: 'IR' },
+		{ name: 'Israel', code: 'IL' },
+		{ name: 'Italy', code: 'IT' },
+		{ name: 'Japan', code: 'JP' },
+		{ name: 'Mexico', code: 'MX' },
+		{ name: 'Netherlands', code: 'NL' },
+		{ name: 'Nigeria', code: 'NG' },
+		{ name: 'Norway', code: 'NO' },
+		{ name: 'Philippines', code: 'PH' },
+		{ name: 'Poland', code: 'PL' },
+		{ name: 'Russia', code: 'RU' },
+		{ name: 'Saudi Arabia', code: 'SA' },
+		{ name: 'South Africa', code: 'ZA' },
+		{ name: 'South Korea', code: 'KR' },
+		{ name: 'Spain', code: 'ES' },
+		{ name: 'Sweden', code: 'SE' },
+		{ name: 'Switzerland', code: 'CH' },
+		{ name: 'Taiwan', code: 'TW' },
+		{ name: 'Thailand', code: 'TH' },
+		{ name: 'Turkey', code: 'TR' },
+		{ name: 'Ukraine', code: 'UA' },
+		{ name: 'United Arab Emirates', code: 'AE' },
+		{ name: 'United Kingdom', code: 'GB' },
+		{ name: 'United States', code: 'US' }
 	];
+
 	import logo from '../../assests/logo.png';
 	let menuActive = false;
 	let currentPage;
 	$: currentPage = $page.route.id;
 
 	let activeSubLink = '';
+	let tmdbData;
+	let multiData = [];
+	let timeout;
+	function debounce() {
+		if (timeout) clearTimeout(timeout);
+		timeout = setTimeout(fetchMulti, 700);
+	}
+	const fetchMulti = async () => {
+		const url = `https://api.themoviedb.org/3/search/multi?api_key=${PUBLIC_API_kEY}&query=${tmdbData}&language=en-US&include_adult=false`;
+		const response = await fetch(url);
+		const data = await response.json();
+		multiData = data.results;
+		console.log(multiData);
+	};
 </script>
 
-<header class="">
+<header>
 	<div class="header container">
 		<div class="menu-btn">
 			<button
@@ -101,7 +117,7 @@
 				</div>
 				<ul>
 					<li class="nav-link">
-						<a href="/home">Home</a>
+						<a href="/home/1">Home</a>
 					</li>
 					<li class="nav-link">
 						<span>
@@ -120,8 +136,8 @@
 						>
 							<ul>
 								{#each genres as genre}
-									<li class="nav-link__genre">
-										<a href="/genre/{genre}">
+									<li class="nav-link__country">
+										<a href="/genre/{genre}/1">
 											{genre}
 										</a>
 									</li>
@@ -146,9 +162,9 @@
 						>
 							<ul>
 								{#each countryList as country}
-									<li class="nav-link__genre">
-										<a href="/country/{country}">
-											{country}
+									<li class="nav-link__country">
+										<a href="/country/{country.code}">
+											{country.name}
 										</a>
 									</li>
 								{/each}
@@ -159,10 +175,10 @@
 						<a href="/movies/1">Movies</a>
 					</li>
 					<li class="nav-link">
-						<a href="/tvseries">TV Series</a>
+						<a href="/tvseries/1">TV Series</a>
 					</li>
 					<li class="nav-link">
-						<a href="/top-imdb">Top IMDB</a>
+						<a href="/top-imdb/1">Top IMDB</a>
 					</li>
 					<li class="nav-link">
 						<a href="/android-app">Android App</a>
@@ -178,8 +194,44 @@
 							d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
 						/>
 					</svg>
-					<input type="text" name="search" />
+					<input
+						type="text"
+						name="search"
+						placeholder="search here"
+						bind:value={tmdbData}
+						on:input={debounce}
+					/>
 				</form>
+				{#if multiData.length != 0 && tmdbData != ''}
+					<div class="search-result">
+						<div>
+							<ul>
+								{#each multiData as data}
+									<li>
+										<a
+											href={data.media_type == 'tv' ? `/tv/${data.id}` : `/movie/${data.id}`}
+											on:click={() => {
+												tmdbData = '';
+											}}
+										>
+											<div>
+												{#if data.poster_path}
+													<img
+														src={`http://image.tmdb.org/t/p/w200${data.poster_path}`}
+														alt={data?.title ? data?.title : data?.name}
+													/>
+												{:else}
+													<div class="dummy-img" />
+												{/if}
+											</div>
+											<span>{data?.title ? data?.title : data?.name}</span>
+										</a>
+									</li>
+								{/each}
+							</ul>
+						</div>
+					</div>
+				{/if}
 			</div>
 		{/if}
 		<div class="login-btn">
@@ -320,6 +372,38 @@
 		height: 15px;
 		width: 15px;
 		fill: #ffffff;
+	}
+	.header .search-query {
+		position: relative;
+	}
+	.header .search-query .search-result {
+		position: absolute;
+		width: 100%;
+		background-color: #2e2e2e;
+		top: 50px;
+		border-radius: 30px;
+		padding: 20px;
+	}
+	.header .search-query .search-result li a {
+		color: #ffffff;
+		text-decoration: none;
+		padding: 0.5rem;
+		display: flex;
+		gap: 0.5rem;
+		border-radius: 10px;
+	}
+	.search-query .search-result li a img {
+		width: 50px;
+		height: 80px;
+		object-fit: cover;
+	}
+	.header .search-query .search-result li a:hover {
+		background-color: #000000;
+	}
+	.dummy-img {
+		width: 50px;
+		height: 80px;
+		background-color: #29565c;
 	}
 	/* Footer area styling */
 	@media (min-width: 1200px) {

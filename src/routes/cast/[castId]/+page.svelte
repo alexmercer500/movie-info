@@ -1,6 +1,6 @@
 <script>
 	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
-
+	import { fade } from 'svelte/transition';
 	import Dummy from '../../../component/Dummy.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
@@ -8,7 +8,6 @@
 	let pageNumb = 1;
 	let castId;
 	$: castId = $page.params.castId;
-	$: console.log(castId);
 	const fetchMovie = async (pageNo) => {
 		let page = pageNo || 1;
 		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNumb}&with_cast=${castId}`;
@@ -27,10 +26,11 @@
 <svelte:head>
 	<title>{castId}</title>
 </svelte:head>
-<section>
+
+<section transition:fade>
 	<div class="container">
 		<div class="movie-page">
-			<div class="page-numbers">
+			<!-- <div class="page-numbers">
 				<button type="button" on:click={fetchMovie(pageNumb - 1)}>Previous</button>
 				<div class="pagination">
 					<ul>
@@ -44,7 +44,7 @@
 					</ul>
 				</div>
 				<button on:click={fetchMovie(pageNumb + 1)}>Next</button>
-			</div>
+			</div> -->
 		</div>
 		<div class="list-container">
 			{#each popularMovie as movie}
