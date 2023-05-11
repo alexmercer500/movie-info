@@ -78,3 +78,9 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.container {
+		padding-top: 3.5rem;
+	}
+</style>
