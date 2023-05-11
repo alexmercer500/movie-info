@@ -15,26 +15,29 @@
 	<div class="container">
 		<div class="movie-page">
 			<div class="page-numbers">
-				<a href={`/movies/${pageNumb === 1 ? pageNumb : pageNumb - 1}`}>Previous</a>
+				<a
+					href={`/movies/${pageNumb === 1 ? pageNumb : pageNumb - 1}`}
+					class={pageNumb === 1 ? 'hidden' : null}>Previous</a
+				>
 				<div class="pagination">
 					<ul>
 						<li><a href={`/movies/${pageNumb}`}>{pageNumb}</a></li>
-						<li>
+						<li class={pageNumb >= 500 ? 'hidden' : null}>
 							<a href={`/movies/${pageNumb + 1}`}>{pageNumb + 1}</a>
 						</li>
-						<li>
+						<li class={pageNumb + 1 >= 500 ? 'hidden' : null}>
 							<a href={`/movies/${pageNumb + 2}`}>{pageNumb + 2}</a>
 						</li>
 					</ul>
 				</div>
-				<a href={`/movies/${pageNumb + 1}`}>Next</a>
+				<a href={`/movies/${pageNumb + 1}`} class={pageNumb + 1 >= 500 ? 'hidden' : null}>Next</a>
 			</div>
 		</div>
 		<div class="list-container">
 			{#each popularMovie as movie}
-				<div class="show-box">
-					<figure>
-						<a href="/movie/{movie.id}">
+				<div class="show-box" title={movie.title}>
+					<a href="/movie/{movie.id}">
+						<figure>
 							{#if !movie.poster_path}
 								<Dummy dummyName={movie.title} />
 							{:else}
@@ -43,11 +46,16 @@
 									alt={movie.title}
 								/>
 							{/if}
-						</a>
-					</figure>
+						</figure>
+					</a>
 					<div class="show-info">
-						<a href="/movies/{movie.id}">{movie.title}</a>
-						<h3>{new Date(movie.release_date).getFullYear()}</h3>
+						<div>
+							<a href="/movie/{movie.id}">{movie.title}</a>
+						</div>
+						<div class="show-date">
+							<h3>{new Date(movie.release_date).getFullYear()}</h3>
+							<span>{movie.vote_average != 0 ? movie.vote_average : 'NA'}</span>
+						</div>
 					</div>
 				</div>
 			{/each}

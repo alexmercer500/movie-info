@@ -33,11 +33,11 @@
 		<div class="list-container">
 			{#each genreResult as movie}
 				<div class="show-box">
-					<figure>
-						<a href="/movie/{movie.id}">
+					<a href="/movie/{movie.id}">
+						<figure>
 							<img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
-						</a>
-					</figure>
+						</figure>
+					</a>
 					<div>
 						<a href="/movie/{movie.id}">{movie.title}</a>
 						<h3>{new Date(movie.release_date).getFullYear()}</h3>

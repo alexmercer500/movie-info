@@ -58,8 +58,8 @@
 		<div class="list-container">
 			{#each popularMovie as movie}
 				<div class="show-box">
-					<figure>
-						<a href={showType === 'movie-show' ? `/movie/${movie.id}` : `/tv/${movie.id}`}>
+					<a href={showType === 'movie-show' ? `/movie/${movie.id}` : `/tv/${movie.id}`}>
+						<figure>
 							{#if !movie.poster_path}
 								<Dummy dummyName={showType === 'movie-show' ? movie.title : movie.name} />
 							{:else}
@@ -68,11 +68,15 @@
 									alt={showType === 'movie-show' ? movie.title : movie.name}
 								/>
 							{/if}
-						</a>
-					</figure>
+						</figure>
+					</a>
 					<div class="show-info">
 						<a href="/movies/{movie.id}">{showType === 'movie-show' ? movie.title : movie.name}</a>
-						<h3>{new Date(showType === 'movie-show' ? movie.release_date : movie.first_air_date).getFullYear()}</h3>
+						<h3>
+							{new Date(
+								showType === 'movie-show' ? movie.release_date : movie.first_air_date
+							).getFullYear()}
+						</h3>
 					</div>
 				</div>
 			{/each}
@@ -114,7 +118,9 @@
 		gap: 0.8rem;
 		justify-content: center;
 	}
-	.page-numbers {padding-block: 0;}
+	.page-numbers {
+		padding-block: 0;
+	}
 	@media (min-width: 800px) {
 	}
 </style>

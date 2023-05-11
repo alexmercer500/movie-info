@@ -1,9 +1,16 @@
 <script>
+	import { searchValue } from '../store/store';
+	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 	import logo from '../assests/logo.png';
 	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
 	import HomeDisclaimer from '../component/HomeDisclaimer.svelte';
 	let tmdbData;
+
+	let searchData;
+	searchValue.subscribe((value) => {
+		searchData = value;
+	});
 
 	const fetchMulti = async () => {
 		const url = `https://api.themoviedb.org/3/search/multi?api_key=${PUBLIC_API_kEY}&query=${tmdbData}&language=en-US&include_adult=false`;
@@ -12,17 +19,26 @@
 		console.log(data);
 	};
 	$: tmdbData != undefined ? fetchMulti(tmdbData) : null;
-</script>
 
+	function handleUpdate(e) {
+		const formData = new FormData(e.target);
+		const data = formData.get('searchShow');
+		searchValue.update((value) => (value = data));
+		goto('/home');
+	}
+</script>
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
 <section transition:fade>
 	<div class="container">
 		<div class="home-page">
 			<div class="main-logo"><img src={logo} alt="Logo" /></div>
 			<h1>HiMovies</h1>
 			<div class="search-box">
-				<form>
-					<input type="text" placeholder="Enter keywords..." />
-					<button>
+				<form on:submit|preventDefault={handleUpdate}>
+					<input type="text" name="searchShow" placeholder="Enter keywords..." />
+					<button type="submit">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 							<path
 								d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
@@ -80,17 +96,8 @@
 					</svg>
 					Email
 				</button>
-				<!-- <button type="button">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-							<path
-								d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z"
-							/>
-						</svg>
-						More
-						<div>64.1k</div>
-					</button> -->
 			</div>
-			<a href="/" class="search-btn">
+			<a href="/home/1" class="search-btn">
 				View full site
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 					<path

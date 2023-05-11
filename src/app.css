@@ -13,13 +13,17 @@
 }
 a {
   text-decoration: none;
+  color: #ffffff;
 }
-button{
+button {
   font-family: 'Poppins', sans-serif;
-  border: none;cursor: pointer;
+  border: none;
+  cursor: pointer;
   border: none;
 }
-ul{list-style: none;}
+ul {
+  list-style: none;
+}
 .container {
   max-width: 1200px;
   margin-inline: auto;
@@ -32,21 +36,63 @@ body {
 }
 .list-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem 0.75rem;
 }
 img {
   max-width: 100%;
   height: auto;
 }
+/* Common modifier Class */
+.hidden {display: none;}
+.flex-1 {flex: 1;}
+/* Movie and TV Card styling */
 .show-box {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 200ms linear;
 }
+.show-box figure {
+  height: 250px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.show-box figure a {display: block;height: 100%;}
 .show-box img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
-
+.show-info {
+  margin-top: 0.75rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.show-info a {
+  font-size: 14px;
+}
+.show-info .show-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.show-info .show-date span {
+  min-width: 40px;
+  text-align: center;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+}
 /* Pagination Styling */
 .page-numbers {
   display: flex;
@@ -70,8 +116,8 @@ img {
   background-color: #ffe400;
   width: 100px;
   border-radius: 0.25rem;
-  transition: box-shadow 200ms;
-  color:#000000;
+  transition: box-shadow 50ms;
+  color: #000000;
 }
 .pagination ul li a {
   display: block;
@@ -87,7 +133,15 @@ img {
 .pagination ul li a:hover {
   box-shadow: 0 0 10px #ffe400;
 }
-
+@media (min-width:500px) {
+  .show-box figure {
+    height: 320px;
+  }
+  .list-container {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.25rem;
+  }
+}
 @media (min-width:800px) {
   .page-numbers .pagination {
     display: block;
@@ -95,4 +149,20 @@ img {
   .page-numbers {
     padding-top: 0;
   }
+}
+@media (hover:hover) {
+  .show-box:hover {
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.199);
+  }
+  .show-box figure::before {
+    content: "";
+    position: absolute;
+    inset: 100% 0 0 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    transition: inset 200ms linear;
+  }
+  .show-box:hover figure::before {
+    inset: 0;
+  } 
 }

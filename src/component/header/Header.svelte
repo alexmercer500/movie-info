@@ -69,6 +69,7 @@
 
 	let activeSubLink = '';
 	let tmdbData;
+	let searchActive = false;
 	let multiData = [];
 	let timeout;
 	function debounce() {
@@ -79,11 +80,29 @@
 		const url = `https://api.themoviedb.org/3/search/multi?api_key=${PUBLIC_API_kEY}&query=${tmdbData}&language=en-US&include_adult=false`;
 		const response = await fetch(url);
 		const data = await response.json();
+		searchActive = true;
 		multiData = data.results;
 		console.log(multiData);
 	};
+	function handleSearchExit(event) {
+		if (event.key === 'Escape' || !event.target.closest('.search-container , .search-result')) {
+			searchActive = false;
+			tmdbData = '';
+		}
+		if (event.key === 'Escape' || !event.target.closest('.nav-item , .menu-btn button')){
+			menuActive = false;
+			activeSubLink = ""
+		}
+	}
+	function handleCloseMenu (e) {
+		if(e.target.closest("li a")) {
+			menuActive = false;
+			activeSubLink = ""
+		}
+	}
 </script>
 
+<svelte:window on:keyup={handleSearchExit} on:click={handleSearchExit} />
 <header>
 	<div class="header container">
 		<div class="menu-btn">
@@ -103,7 +122,7 @@
 		<div class="logo">
 			<a href="/"><img src={logo} alt="App Logo" /></a>
 		</div>
-		<nav class:active-menu={menuActive} class="nav-item">
+		<nav class:active-menu={menuActive} class="nav-item" on:click={handleCloseMenu} on:keyup={handleCloseMenu}>
 			<div class="menu-close">
 				<button on:click={() => (menuActive = false)}>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
@@ -201,7 +220,7 @@
 							on:input={debounce}
 						/>
 					</form>
-					{#if multiData.length != 0 && tmdbData != ''}
+					{#if multiData.length != 0 && tmdbData != '' && searchActive}
 						<div class="search-result">
 							<ul>
 								{#each multiData as data}
@@ -255,6 +274,7 @@
 		align-items: center;
 		padding-block: 10px;
 		position: relative;
+		z-index: 999;
 	}
 	.header .logo img {
 		width: 160px;
@@ -269,6 +289,7 @@
 		overflow-y: auto;
 		transform: translateX(-100vw);
 		transition: transform 200ms linear;
+		z-index: 1;
 	}
 	.header .nav-item.active-menu {
 		transform: translateX(0);
@@ -395,7 +416,7 @@
 		border-radius: 10px;
 	}
 	.search-query .search-result li a img {
-		width: 50px;
+		min-width: 50px;
 		height: 80px;
 		object-fit: cover;
 	}

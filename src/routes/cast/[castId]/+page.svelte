@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import Dummy from '../../../component/Dummy.svelte';
 	import { onMount } from 'svelte';
+	import dummyPoster from '../../../assests/dummy.png';
 	import { page } from '$app/stores';
 	let popularMovie = [];
 	let pageNumb = 1;
@@ -21,6 +22,11 @@
 	onMount(() => {
 		fetchMovie(pageNumb);
 	});
+	function onLoad() {
+		if (this.src != this.dataset.url) {
+			this.src = this.dataset.url;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -49,18 +55,20 @@
 		<div class="list-container">
 			{#each popularMovie as movie}
 				<div class="show-box">
-					<figure>
-						<a href="/movie/{movie.id}">
+					<a href="/movie/{movie.id}">
+						<figure>
 							{#if !movie.poster_path}
 								<Dummy dummyName={movie.title} />
 							{:else}
 								<img
-									src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+									data-url={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+									src={dummyPoster}
 									alt={movie.title}
+									on:load={onLoad}
 								/>
 							{/if}
-						</a>
-					</figure>
+						</figure>
+					</a>
 					<div class="show-info">
 						<a href="/movie/{movie.id}">{movie.title}</a>
 						<h3>{new Date(movie.release_date).getFullYear()}</h3>
