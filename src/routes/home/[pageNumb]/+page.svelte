@@ -13,8 +13,10 @@
 </svelte:head>
 <section transition:fade>
 	<div class="container">
-		<div class="movie-page">
-			<p class="trending">Trending</p>
+		<div id="movie-def" class="movie-page">
+			<div class="trending">
+				<p>Trending</p>
+			</div>
 			<div class="page-numbers">
 				<a href={`/home/${pageNumb === 1 ? pageNumb : pageNumb - 1}`}>Previous</a>
 				<div class="pagination">
@@ -61,3 +63,26 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	#movie-def {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		padding-block: 3.5rem 2rem;
+	}
+	#movie-def div:last-child {
+		margin-inline: 0;
+		padding-block: 0;
+	}
+	#movie-def div:first-child p{
+		font-size: 20px;
+	}
+	@media (min-width:800px) {
+		#movie-def {
+			padding-top: 0;
+		}
+	}
+</style>

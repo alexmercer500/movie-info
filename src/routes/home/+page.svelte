@@ -15,7 +15,7 @@
 </svelte:head>
 <section transition:fade>
 	<div class="container">
-		<p>Search Result : {searchQuery.toUpperCase()}</p>
+		<p class="search-query">Search Result : {searchQuery.toUpperCase()}</p>
 		{#if searchResults.length === 0}
 			<div class="no-result">
 				<img src={noResult} alt="No Result" />
@@ -58,5 +58,9 @@
 		max-width: 500px;
 		height: auto;
 		margin-inline: auto;
+	}
+	.search-query{
+		font-size: 20px;
+		margin-bottom: 2rem;
 	}
 </style>
