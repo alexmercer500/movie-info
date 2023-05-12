@@ -1,56 +1,123 @@
 <script>
-	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
-	import { fade } from 'svelte/transition';
-	import Dummy from '../../../component/Dummy.svelte';
-	import { onMount } from 'svelte';
-	import dummyPoster from '../../../assests/dummy.png';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
+	import Dummy from '../../../component/Dummy.svelte';
 	let popularMovie = [];
+	let castInfo;
 	let pageNumb = 1;
-	let castId;
+	let totalPage;
+	let totalResults;
+	let moreContent = false;
 	$: castId = $page.params.castId;
 	const fetchMovie = async (pageNo) => {
-		let page = pageNo || 1;
-		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNumb}&with_cast=${castId}`;
-		const response = await fetch(apiUrl);
-		const data = await response.json();
+		let pageNu = pageNo || 1;
+		const castUrl = `https://api.themoviedb.org/3/person/${castId}?api_key=${PUBLIC_API_kEY}&language=en-US`;
+		const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${PUBLIC_API_kEY}&sort_by=popularity.desc&page=${pageNu}&with_cast=${castId}`;
 
-		pageNumb = data.page;
-		popularMovie = data.results;
+		const [castResponse, movieResponse] = await Promise.all([fetch(castUrl), fetch(apiUrl)]);
+		const [castData, movieData] = await Promise.all([castResponse.json(), movieResponse.json()]);
+		castInfo = castData;
+		pageNumb = movieData.page;
+		popularMovie = movieData.results;
+		totalPage = movieData.total_pages;
+		totalResults = movieData.total_results;
 	};
 
 	onMount(() => {
 		fetchMovie(pageNumb);
 	});
-	function onLoad() {
-		if (this.src != this.dataset.url) {
-			this.src = this.dataset.url;
-		}
-	}
 </script>
 
 <svelte:head>
-	<title>{castId}</title>
+	<title>{castInfo ? castInfo.name : null}</title>
 </svelte:head>
 
 <section transition:fade>
 	<div class="container">
+		{#if castInfo}
+			<div class="show-info_container">
+				<div class="cast-info">
+					<div>
+						<div class="poster-container">
+							<figure>
+								<img
+									src={`http://image.tmdb.org/t/p/w500/${castInfo.profile_path}`}
+									alt={castInfo.name}
+								/>
+							</figure>
+						</div>
+						<div class="mov-guide">
+							<div>
+								<p>{castInfo.name}</p>
+								<p>Date of Birth: {castInfo.birthday}</p>
+								<div>
+									<p>
+										{!moreContent && castInfo.biography.length > 400
+											? castInfo.biography.substring(0, 400) + '...'
+											: castInfo.biography}
+									</p>
+									<button
+										type="button"
+										class:hidden={castInfo.biography.length < 400}
+										on:click={() => {
+											moreContent = !moreContent;
+										}}>{!moreContent ? 'Read More' : 'See Less'}</button
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
 		<div class="movie-page">
-			<!-- <div class="page-numbers">
-				<button type="button" on:click={fetchMovie(pageNumb - 1)}>Previous</button>
+			<div class="page-count">
+				<p>Page No : <span> {pageNumb} </span> of <span>{totalPage}</span></p>
+				<p>
+					Results : <span>
+						{pageNumb === 1 ? pageNumb : 20 * pageNumb - 20 + 1} to {20 * pageNumb > totalResults
+							? totalResults
+							: 20 * pageNumb}
+					</span>
+					of <span>{totalResults}</span>
+				</p>
+			</div>
+			<div class="page-numbers">
+				<button
+					type="button"
+					disabled={pageNumb <= 1 ? true : false}
+					on:click={() => {
+						fetchMovie(pageNumb - 1);
+					}}>Previous</button
+				>
 				<div class="pagination">
 					<ul>
-						<li><button type="button" on:click={fetchMovie(pageNumb)}>{pageNumb}</button></li>
-						<li>
-							<button type="button" on:click={fetchMovie(pageNumb + 1)}>{pageNumb + 1}</button>
+						<li class:hidden={pageNumb <= 2}>
+							<button
+								type="button"
+								on:click={() => {
+									fetchMovie(pageNumb - 2);
+								}}>{pageNumb - 2}</button
+							>
 						</li>
-						<li>
-							<button type="button" on:click={fetchMovie(pageNumb + 2)}>{pageNumb + 2}</button>
+						<li class:hidden={pageNumb >= totalPage - 1}>
+							<button
+								type="button"
+								on:click={() => {
+									fetchMovie(pageNumb + 2);
+								}}>{pageNumb + 2}</button
+							>
 						</li>
 					</ul>
 				</div>
-				<button on:click={fetchMovie(pageNumb + 1)}>Next</button>
-			</div> -->
+				<button
+					type="button"
+					disabled={pageNumb >= totalPage ? true : false}
+					on:click={fetchMovie(pageNumb + 1)}>Next</button
+				>
+			</div>
 		</div>
 		<div class="list-container">
 			{#each popularMovie as movie}
@@ -61,10 +128,8 @@
 								<Dummy dummyName={movie.title} />
 							{:else}
 								<img
-									data-url={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-									src={dummyPoster}
+									src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
 									alt={movie.title}
-									on:load={onLoad}
 								/>
 							{/if}
 						</figure>
@@ -80,7 +145,68 @@
 </section>
 
 <style>
-	.container {
-		padding-top: 3.5rem;
+	.movie-page {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		align-items: center;
+		padding-bottom: 2.5rem;
+	}
+	.movie-page .page-count {
+		font-size: 18px;
+	}
+	.movie-page .page-count p:last-child {
+		margin-top: 1rem;
+	}
+	.movie-page .page-count span {
+		font-weight: 600;
+	}
+	.movie-page .page-numbers {
+		margin-inline: 0;
+		width: unset;
+		padding-block: 0;
+	}
+	/* Actors Details styling */
+
+	.cast-info {
+		padding-block: 3rem;
+	}
+	.cast-info > * {
+		display: flex;
+		flex-direction: column;
+	}
+	.cast-info .poster-container {
+		flex-basis: 350px;
+	}
+	.cast-info .mov-guide {
+		flex: 1;
+	}
+	.mov-guide button {
+		margin-top: 24px;
+	}
+	.poster-container figure {
+		display: grid;
+		width: -moz-fit-content;
+		width: fit-content;
+		margin-inline: auto;
+		padding: 0.75rem;
+		border-radius: 10px;
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+	.poster-container figure img {
+		border-radius: 10px;
+	}
+	@media (min-width: 800px) {
+		section {
+			padding-top: 2rem;
+		}
+		.cast-info > * {
+			flex-direction: row;
+		}
+		.cast-info .mov-guide div {
+			max-width: 650px;
+			margin-left: auto;
+		}
 	}
 </style>

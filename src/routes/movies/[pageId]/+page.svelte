@@ -11,6 +11,7 @@
 <svelte:head>
 	<title>Popular Movie || page no : {pageNumb}</title>
 </svelte:head>
+
 <section transition:fade>
 	<div class="container">
 		<div class="movie-page">
@@ -57,7 +58,7 @@
 							<span>{movie.vote_average != 0 ? movie.vote_average : 'NA'}</span>
 						</div>
 					</div>
-				</div>
+				</div> 	
 			{/each}
 		</div>
 	</div>
