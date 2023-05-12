@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -209,4 +209,4 @@
 			margin-left: auto;
 		}
 	}
-</style> -->
+</style>
