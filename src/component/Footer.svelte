@@ -9,11 +9,10 @@
 				<a href="/">9Anime</a>
 			</div>
 			<p>
-				HiMovies is a Free Movies streaming site with zero ads. We let you watch movies online
-				without having to register or paying, with over 10000 movies and TV-Series. You can also
-				Download full movies from HiMovies and watch it later if you want.
+				MovInfo is a Free Movies and Tv-show information site. This is personel project and is in early development stage.
+				MovInfo is using TMDb free API to fetch movie, tv and cast details. It is build on sveltekit. 
 			</p>
-			<span>© HiMovies</span>
+			<span>© Ratnesh Sahu || MovInfo</span>
 		</div>
 	</div>
 </footer>

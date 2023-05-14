@@ -3,22 +3,12 @@
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 	import logo from '../assests/logo.png';
-	const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
-	import HomeDisclaimer from '../component/HomeDisclaimer.svelte';
-	let tmdbData;
+	// import HomeDisclaimer from '../component/HomeDisclaimer.svelte';
 
 	let searchData;
 	searchValue.subscribe((value) => {
 		searchData = value;
 	});
-
-	const fetchMulti = async () => {
-		const url = `https://api.themoviedb.org/3/search/multi?api_key=${PUBLIC_API_kEY}&query=${tmdbData}&language=en-US&include_adult=false`;
-		const response = await fetch(url);
-		const data = await response.json();
-		console.log(data);
-	};
-	$: tmdbData != undefined ? fetchMulti(tmdbData) : null;
 
 	function handleUpdate(e) {
 		const formData = new FormData(e.target);
@@ -34,7 +24,6 @@
 	<div class="container">
 		<div class="home-page">
 			<div class="main-logo"><img src={logo} alt="Logo" /></div>
-			<h1>HiMovies</h1>
 			<div class="search-box">
 				<form on:submit|preventDefault={handleUpdate}>
 					<input type="text" name="searchShow" placeholder="Enter keywords..." />
@@ -107,7 +96,7 @@
 			</a>
 		</div>
 	</div>
-	<HomeDisclaimer />
+	<!-- <HomeDisclaimer /> -->
 </section>
 
 <style>
@@ -120,12 +109,7 @@
 		margin-inline: auto;
 		width: 100%;
 		height: auto;
-	}
-	.home-page h1 {
-		font-size: 28px;
-		color: #ffe400;
-		font-weight: 600;
-		margin-bottom: 10px;
+		margin-bottom: 1.25rem;
 	}
 	.home-page .main-logo img {
 		max-width: 100%;
