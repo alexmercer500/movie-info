@@ -1,7 +1,6 @@
 const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY;
 
 export async function load({ fetch, params }) {
-    console.log(params.tmdbID);
     let movieUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${PUBLIC_API_kEY}&language=en-US&page=${params.tmdbID}`;
     let tvUrl = `https://api.themoviedb.org/3/tv/top_rated?api_key=${PUBLIC_API_kEY}&language=en-US&page=${params.tmdbID}`;
 

@@ -3,7 +3,6 @@ import { searchValue } from '../../../store/store';
 let searchQuery;
 
 searchValue.subscribe(value => searchQuery = value)
-console.log(searchQuery);
 export async function load({ fetch, params }) {
   let page = params.pageNumb || 1
   const apiUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${PUBLIC_API_kEY}&page=${page}`

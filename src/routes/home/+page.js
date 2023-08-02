@@ -8,7 +8,6 @@ export async function load({ fetch }) {
   const apiUrl = `https://api.themoviedb.org/3/search/multi?api_key=${PUBLIC_API_kEY}&query=${searchQuery}&language=en-US&include_adult=false`
   const response = await fetch(apiUrl)
   const data = await response.json()
-  console.log(data);
 
   return {
     data

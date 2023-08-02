@@ -82,7 +82,6 @@
 		const data = await response.json();
 		searchActive = true;
 		multiData = data.results;
-		console.log(multiData);
 	};
 	function handleSearchExit(event) {
 		if (event.key === 'Escape' || !event.target.closest('.search-container , .search-result')) {

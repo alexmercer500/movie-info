@@ -3,7 +3,6 @@
 	import { fade } from 'svelte/transition';
 	export let data;
 	$: popularTV = data.data.results;
-	$: console.log(popularTV);
 	$: pageNumb = data.data.page;
 </script>
 

@@ -12,7 +12,6 @@
 		? (popularMovie = tvData.results)
 		: null;
 	$: pageNumb = movieData.page;
-	$: console.log(popularMovie);
 </script>
 
 <svelte:head>

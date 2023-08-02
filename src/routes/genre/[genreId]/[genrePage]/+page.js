@@ -2,7 +2,6 @@ const PUBLIC_API_kEY = import.meta.env.VITE_API_kEY
 
 export async function load({ fetch, params }) {
     let genrePage = params.genrePage || 1;
-    console.log(genrePage);
   try {
     const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${PUBLIC_API_kEY}&language=en-US`)
     const genreData = await response.json()

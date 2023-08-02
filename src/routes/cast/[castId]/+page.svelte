@@ -115,8 +115,8 @@
 				<button
 					type="button"
 					disabled={pageNumb >= totalPage ? true : false}
-					on:click={fetchMovie(pageNumb + 1)}>Next</button
-				>
+					on:click={fetchMovie(pageNumb + 1)}>Next
+				</button>
 			</div>
 		</div>
 		<div class="list-container">
